@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="ShopSphere is a multi-vendor marketplace to explore products from different sellers in one place.">
+
+    <title>ShopSphere | Discover More. Shop Smarter.</title>
+
+    <style>
+        :root {
+            --primary: #6045e8;
+            --primary-dark: #4932c4;
+            --dark: #17172b;
+            --text: #28283b;
+            --muted: #73758a;
+            --background: #f7f8fc;
+            --white: #ffffff;
+            --border: #e9eaf2;
+            --shadow: 0 12px 35px rgba(32, 30, 75, 0.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            width: 88%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        header {
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            min-height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--dark);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+        }
+
+        nav a {
+            color: #55566b;
+            font-size: 14px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 23px;
+            border-radius: 9px;
+            border: 1px solid transparent;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--primary);
+            border-color: #ded8ff;
+        }
+
+        .btn-outline:hover {
+            background: #f0edff;
+            color: var(--primary-dark);
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            padding: 78px 0;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(181, 166, 255, 0.30),
+                    transparent 30%
+                ),
+                linear-gradient(125deg, #f1efff 0%, #f7f8ff 55%, #eaf5ff 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 14px;
+            border: 1px solid #ded8ff;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.75);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 23px;
+        }
+
+        .hero h1 {
+            max-width: 650px;
+            font-size: clamp(38px, 5vw, 61px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+            color: var(--dark);
+            margin-bottom: 23px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 550px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .hero-note {
+            margin-top: 26px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-circle {
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #8069f4, #6045e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 130px;
+            box-shadow: 0 30px 65px rgba(96, 69, 232, 0.25);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--white);
+            border: 1px solid rgba(230, 228, 245, 0.9);
+            border-radius: 14px;
+            padding: 15px 19px;
+            box-shadow: var(--shadow);
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .floating-card small {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .floating-card.one {
+            top: 45px;
+            left: 0;
+        }
+
+        .floating-card.two {
+            right: 0;
+            bottom: 48px;
+        }
+
+        /* BENEFITS */
+
+        .benefits {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 26px 0;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 13px;
+        }
+
+        .benefit-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0edff;
+            border-radius: 12px;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .benefit h3 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .benefit p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* GENERAL SECTIONS */
+
+        .section {
+            padding: 76px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .section-label {
+            display: block;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            color: var(--dark);
+            font-size: clamp(27px, 3vw, 36px);
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* CATEGORY CARDS */
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            min-height: 165px;
+            padding: 25px 12px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+
+        .category-icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border-radius: 18px;
+            background: #f0edff;
+            font-size: 32px;
+        }
+
+        .category-card:nth-child(2) .category-icon {
+            background: #fff0e8;
+        }
+
+        .category-card:nth-child(3) .category-icon {
+            background: #e8f7ee;
+        }
+
+        .category-card:nth-child(4) .category-icon {
+            background: #e8f3ff;
+        }
+
+        .category-card:nth-child(5) .category-icon {
+            background: #fff4d9;
+        }
+
+        .category-card h3 {
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        /* FEATURED PRODUCTS */
+
+        .featured-section {
+            background: #ffffff;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 23px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-image {
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 75px;
+            background: linear-gradient(145deg, #f0edff, #f8f7ff);
+        }
+
+        .product-card:nth-child(2) .product-image {
+            background: linear-gradient(145deg, #e8f3ff, #f5faff);
+        }
+
+        .product-card:nth-child(3) .product-image {
+            background: linear-gradient(145deg, #fff0e8, #fff9f4);
+        }
+
+        .product-card:nth-child(4) .product-image {
+            background: linear-gradient(145deg, #e8f7ee, #f6fff9);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 5px;
+            background: #f0edff;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .product-info h3 {
+            color: var(--dark);
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .seller {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 17px;
+        }
+
+        .product-info .btn {
+            width: 100%;
+        }
+
+        .demo-note {
+            margin-top: 25px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .section-action {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        /* SELLER BANNER */
+
+        .seller-section {
+            padding: 15px 0 75px;
+        }
+
+        .seller-banner {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            padding: 48px;
+            border-radius: 20px;
+            background:
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(133, 111, 255, 0.35),
+                    transparent 30%
+                ),
+                linear-gradient(120deg, #211c46, #302568);
+            color: var(--white);
+        }
+
+        .seller-banner h2 {
+            font-size: clamp(25px, 3vw, 34px);
+            line-height: 1.25;
+            margin-bottom: 13px;
+        }
+
+        .seller-banner p {
+            max-width: 580px;
+            color: #d8d5ee;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .seller-banner .btn {
+            background: var(--white);
+            color: var(--primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .seller-banner .btn:hover {
+            background: #f0edff;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #151426;
+            color: var(--white);
+            padding: 42px 0 20px;
+        }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 35px;
+            flex-wrap: wrap;
+            padding-bottom: 30px;
+        }
+
+        .footer-brand {
+            max-width: 360px;
+        }
+
+        .footer-brand .logo {
+            display: inline-block;
+            color: #a99aff;
+            margin-bottom: 13px;
+        }
+
+        .footer-brand .logo span {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            color: #b9b8cb;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-links h3 {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            display: block;
+            margin-bottom: 10px;
+            color: #b9b8cb;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #343249;
+            padding-top: 20px;
+            text-align: center;
+            color: #a9a8bb;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE DESIGN */
+
+        @media (max-width: 1000px) {
+            .container {
+                width: 92%;
+            }
+
+            .hero-grid {
+                gap: 25px;
+            }
+
+            .hero-circle {
+                width: 260px;
+                height: 260px;
+                font-size: 105px;
+            }
+
+            .categories {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .products {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            nav {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+                gap: 18px;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 13px;
+            }
+
+            .nav-actions {
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 55px 0 40px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 300px;
+            }
+
+            .hero-circle {
+                width: 225px;
+                height: 225px;
+                font-size: 90px;
+            }
+
+            .floating-card.one {
+                left: 2%;
+                top: 20px;
+            }
+
+            .floating-card.two {
+                right: 2%;
+                bottom: 20px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .benefit {
+                justify-content: flex-start;
+            }
+
+            .section {
+                padding: 55px 0;
+            }
+
+            .categories {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px;
+            }
+
+            .products {
+                gap: 14px;
+            }
+
+            .product-image {
+                height: 145px;
+                font-size: 58px;
+            }
+
+            .product-info {
+                padding: 14px;
+            }
+
+            .product-info h3 {
+                font-size: 14px;
+            }
+
+            .price {
+                font-size: 19px;
+            }
+
+            .product-info .btn {
+                padding: 11px 8px;
+                font-size: 12px;
+            }
+
+            .seller-banner {
+                padding: 30px 22px;
+                text-align: center;
+                flex-direction: column;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            nav {
+                gap: 12px;
+            }
+
+            .nav-actions {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .categories {
+                gap: 10px;
+            }
+
+            .category-card {
+                padding: 20px 8px;
+            }
+
+            .product-image {
+                height: 120px;
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="container navbar">
+
+            <a href="/" class="logo" aria-label="ShopSphere Home">
+                🛍️ Shop<span>Sphere</span>
+            </a>
+
+            <nav aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+                <a href="/login">Login</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="/register" class="btn">Get Started <span>→</span></a>
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container hero-grid">
+
+                <div class="hero-content">
+                    <span class="eyebrow">Your marketplace, reimagined</span>
+
+                    <h1>
+                        Discover More.<br>
+                        <span>Shop Smarter.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Welcome to ShopSphere — your destination for discovering
+                        products from multiple sellers in one convenient place.
+                        Find your favorites and enjoy a simpler shopping experience.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="/products" class="btn">
+                            Explore Products <span>→</span>
+                        </a>
+
+                        <a href="/register?role=seller" class="btn btn-outline">
+                            Become a Seller
+                        </a>
+                    </div>
+
+                    <p class="hero-note">
+                        ✨ Discover products. Support sellers. Shop with ease.
+                    </p>
+                </div>
+                <div class="hero-visual" aria-label="Shopping illustration">
+
+    <div class="hero-circle">🛍️</div>
+
+    <div class="floating-card one">
+        <strong>🛒 Easy Shopping</strong>
+        <small>Explore products in one place</small>
+    </div>
+
+    <div class="floating-card two">
+        <strong>🏪 Multiple Sellers</strong>
+        <small>Discover different stores</small>
+    </div>
+
+</div>
+
+</div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+    <div class="container benefits-grid">
+
+        <div class="benefit">
+            <div class="benefit-icon">🛍️</div>
+            <div>
+                <h3>Explore Products</h3>
+                <p>Discover items from different sellers</p>
+            </div>
+        </div>
+
+        <div class="benefit">
+            <div class="benefit-icon">🏪</div>
+            <div>
+                <h3>Seller Marketplace</h3>
+                <p>A platform for customer and seller accounts</p>
+            </div>
+        </div>
+
+        <div class="benefit">
+            <div class="benefit-icon">📦</div>
+            <div>
+                <h3>Track Your Orders</h3>
+                <p>View your orders and their current status</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="section-label">Explore the collection</span>
+            <h2>Shop by Category</h2>
+            <p>Find something you'll love across popular categories.</p>
+        </div>
+
+        <div class="categories">
+
+            <a href="/products" class="category-card">
+                <div class="category-icon">📱</div>
+                <h3>Electronics</h3>
+            </a>
+
+            <a href="/products" class="category-card">
+                <div class="category-icon">👕</div>
+                <h3>Fashion</h3>
+            </a>
+
+            <a href="/products" class="category-card">
+                <div class="category-icon">👟</div>
+                <h3>Footwear</h3>
+            </a>
+
+            <a href="/products" class="category-card">
+                <div class="category-icon">🏠</div>
+                <h3>Home &amp; Living</h3>
+            </a>
+
+            <a href="/products" class="category-card">
+                <div class="category-icon">📚</div>
+                <h3>Books</h3>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED DEMO ITEMS -->
+<section class="section featured-section" id="featured">
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="section-label">Find your next favorite</span>
+            <h2>Explore Popular Picks</h2>
+            <p>A preview of the kinds of products you can discover.</p>
+        </div>
+
+        <div class="products">
+
+            <article class="product-card">
+                <div class="product-image" aria-label="Headphones illustration">🎧</div>
+                <div class="product-info">
+                    <span class="product-tag">Electronics</span>
+                    <h3>Wireless Headphones</h3>
+                    <p class="seller">Example product preview</p>
+                    <a href="/products" class="btn">Browse Products →</a>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image" aria-label="Smart watch illustration">⌚</div>
+                <div class="product-info">
+                    <span class="product-tag">Accessories</span>
+                    <h3>Smart Watch</h3>
+                    <p class="seller">Example product preview</p>
+                    <a href="/products" class="btn">Browse Products →</a>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image" aria-label="Backpack illustration">🎒</div>
+                <div class="product-info">
+                    <span class="product-tag">Lifestyle</span>
+                    <h3>Travel Backpack</h3>
+                    <p class="seller">Example product preview</p>
+                    <a href="/products" class="btn">Browse Products →</a>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <div class="product-image" aria-label="Sneakers illustration">👟</div>
+                <div class="product-info">
+                    <span class="product-tag">Footwear</span>
+                    <h3>Casual Sneakers</h3>
+                    <p class="seller">Example product preview</p>
+                    <a href="/products" class="btn">Browse Products →</a>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="demo-note">
+            Note: These are illustrative previews. Visit Products to see items listed on ShopSphere.
+        </p>
+
+        <div class="section-action">
+            <a href="/products" class="btn">View All Products →</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- SELLER CALL TO ACTION -->
+<section class="seller-section">
+    <div class="container">
+
+        <div class="seller-banner">
+            <div>
+                <h2>Have Products to Sell?</h2>
+
+                <p>
+                    Bring your products to ShopSphere. Create a seller account,
+                    list your items, manage your inventory, and connect with customers.
+                </p>
+            </div>
+
+            <a href="/register?role=seller" class="btn">
+                Start Selling <span>→</span>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+                <a href="/" class="logo">🛍️ Shop<span>Sphere</span></a>
+
+                <p>
+                    A multi-vendor marketplace designed to bring customers
+                    and sellers together in one convenient place.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Explore</h3>
+                <a href="/">Home</a>
+                <a href="/products">Browse Products</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>Your Account</h3>
+                <a href="/login">Login</a>
+                <a href="/register">Create Account</a>
+                <a href="/register?role=seller">Become a Seller</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 ShopSphere. All rights reserved.</p>
+            <p>Discover More. Shop Smarter.</p>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>

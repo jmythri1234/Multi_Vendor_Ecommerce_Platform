@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Seller Orders - ShopSphere</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+            color: #1f2937;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .order-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-card h2 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .order-card p {
+            margin: 10px 0;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .status-form {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .status-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .status-form select {
+            width: 100%;
+            max-width: 320px;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            background: white;
+        }
+
+        .update-btn {
+            display: block;
+            background: #16a34a;
+            color: white;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .update-btn:hover {
+            background: #15803d;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 7px;
+            margin-top: 10px;
+        }
+
+        .flash {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 7px;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .order-card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📦 Seller Orders</h1>
+    <p class="subtitle">Manage orders containing your products</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+    {% for order in orders %}
+
+    <div class="order-card">
+
+        <h2>Order #{{ order['order_id'] }}</h2>
+
+        <p>
+            <strong>Product:</strong>
+            {{ order['product_name'] }}
+        </p>
+
+        <p>
+            <strong>Customer:</strong>
+            {{ order['customer_name'] }}
+        </p>
+
+        <p>
+            <strong>Customer Email:</strong>
+            {{ order['customer_email'] }}
+        </p>
+
+        <p>
+            <strong>Quantity:</strong>
+            {{ order['quantity'] }}
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₹{{ "%.2f"|format(order['price']) }}
+        </p>
+
+        <p>
+            <strong>Subtotal:</strong>
+            ₹{{ "%.2f"|format(order['subtotal']) }}
+        </p>
+
+        <p>
+            <strong>Delivery Address:</strong><br>
+            {{ order['delivery_address'] }}
+        </p>
+
+        <p>
+            <strong>Order Date:</strong>
+            {{ order['created_at'] }}
+        </p>
+
+        <p>
+            <strong>Current Status:</strong>
+            <span class="status">{{ order['order_status'] }}</span>
+        </p>
+
+        <form
+            class="status-form"
+            action="{{ url_for('update_order_status', order_id=order['order_id']) }}"
+            method="POST"
+        >
+
+            <label for="status-{{ order['order_id'] }}">
+                Update Order Status
+            </label>
+
+            <select
+                name="status"
+                id="status-{{ order['order_id'] }}"
+                required
+            >
+                <option value="Processing"
+                    {% if order['order_status'] == 'Processing' %}selected{% endif %}>
+                    Processing
+                </option>
+
+                <option value="Shipped"
+                    {% if order['order_status'] == 'Shipped' %}selected{% endif %}>
+                    Shipped
+                </option>
+
+                <option value="Delivered"
+                    {% if order['order_status'] == 'Delivered' %}selected{% endif %}>
+                    Delivered
+                </option>
+
+                <option value="Cancelled"
+                    {% if order['order_status'] == 'Cancelled' %}selected{% endif %}>
+                    Cancelled
+                </option>
+            </select>
+
+            <button type="submit" class="update-btn">
+                Update Status
+            </button>
+
+        </form>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+        <h2>No Orders Yet!</h2>
+        <p>Orders containing your products will appear here.</p>
+    </div>
+
+    {% endfor %}
+
+    <a href="{{ url_for('seller_dashboard') }}" class="back-btn">
+        ← Back to Seller Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

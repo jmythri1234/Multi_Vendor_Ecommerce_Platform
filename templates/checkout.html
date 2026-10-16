@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | ShopSphere</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+        .checkout-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #172554;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .order-summary {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .order-summary h3 {
+            color: #172554;
+            margin-bottom: 15px;
+        }
+
+        .total {
+            font-size: 22px;
+            color: #15803d;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .place-order {
+            width: 100%;
+            padding: 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .place-order:hover {
+            background: #1d4ed8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .checkout-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛍️ ShopSphere</h1>
+
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('products') }}">Products</a>
+        <a href="{{ url_for('cart') }}">Shopping Cart</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <div class="checkout-card">
+
+        <h2>🛒 Checkout</h2>
+
+        <p class="subtitle">
+            Enter your delivery details to place your order.
+        </p>
+
+        <form action="{{ url_for('checkout') }}" method="POST">
+
+            <div class="form-group">
+                <label for="full_name">Full Name *</label>
+
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    value="{{ session.get('user_name', '') }}"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your 10-digit phone number"
+                    pattern="[6-9][0-9]{9}"
+                    maxlength="10"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="address">Delivery Address *</label>
+
+                <textarea
+                    id="address"
+                    name="address"
+                    placeholder="House number, street, village or town"
+                    maxlength="1000"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City / Town *</label>
+
+                <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="state">State *</label>
+
+                <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="pincode">PIN Code *</label>
+
+                <input
+                    type="text"
+                    id="pincode"
+                    name="pincode"
+                    placeholder="Enter 6-digit PIN code"
+                    pattern="[0-9]{6}"
+                    maxlength="6"
+                    required
+                >
+            </div>
+
+            <div class="order-summary">
+
+                <h3>📦 Order Summary</h3>
+
+                {% for item in order_products %}
+
+                   <p style="margin-bottom: 10px;">
+                     {{ item.name }}
+                     × {{ item.quantity }}
+                     — ₹{{ "%.2f"|format(item.subtotal) }}
+                   </p>
+
+                 {% endfor %}
+
+                 <p class="total">
+                   Total: ₹{{ "%.2f"|format(total_amount) }}
+                 </p>
+
+                 <p style="margin-top: 12px;">
+                     Payment Method: Cash on Delivery
+                 </p>
+
+            </div>
+
+            <button type="submit" class="place-order">
+                Place Order
+            </button>
+
+        </form>
+
+        <a class="back-link" href="{{ url_for('cart') }}">
+            ← Back to Shopping Cart
+        </a>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 ShopSphere. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products | ShopSphere</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #93c5fd;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            background: #dbeafe;
+        }
+
+        .hero h2 {
+            font-size: 32px;
+            color: #172554;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .message {
+            background: #dcfce7;
+            color: #166534;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 210px;
+            object-fit: contain;
+            background: #fff;
+            padding: 15px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            color: #172554;
+            margin-bottom: 10px;
+            font-size: 21px;
+            overflow-wrap: anywhere;
+        }
+
+        .description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .price {
+            font-size: 23px;
+            color: #15803d;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .details {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .seller {
+            color: #555;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .cart-button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-button:hover {
+            background: #1d4ed8;
+        }
+
+        .cart-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .login-cart {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .login-cart:hover {
+            background: #1d4ed8;
+        }
+
+        .empty {
+            background: white;
+            padding: 45px 20px;
+            text-align: center;
+            border-radius: 12px;
+            grid-column: 1 / -1;
+        }
+
+        .empty h3 {
+            color: #172554;
+            margin-bottom: 12px;
+        }
+
+        .empty p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h2 {
+                font-size: 25px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛍️ ShopSphere</h1>
+
+    <nav>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('products') }}">Products</a>
+
+    {% if session.get('user_role') == 'customer' %}
+        <a href="{{ url_for('my_orders') }}">My Orders</a>
+        <a href="{{ url_for('cart') }}">Shopping Cart</a>
+    {% endif %}
+
+    {% if session.get('user_role') == 'seller' %}
+        <a href="{{ url_for('seller_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('add_product') }}">Add Product</a>
+    {% endif %}
+
+    {% if session.get('user_id') %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+</nav>
+</header>
+
+<section class="hero">
+    <h2>Explore Our Products</h2>
+    <p>Discover products from sellers on ShopSphere.</p>
+</section>
+
+<main class="container">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% for category, message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endwith %}
+
+    <div class="product-grid">
+
+        {% if products %}
+
+            {% for product in products %}
+
+                <div class="product-card">
+
+                    {% if product['image_url'] %}
+
+                        <img
+                            class="product-image"
+                            src="{{ product['image_url'] }}"
+                            alt="{{ product['name'] }}"
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x200?text=Product';"
+                        >
+
+                    {% else %}
+
+                        <img
+                            class="product-image"
+                            src="https://placehold.co/300x200?text=Product"
+                            alt="Product image"
+                        >
+
+                    {% endif %}
+
+                    <div class="product-info">
+
+                        <h3>
+                            {{ product['name'] }}
+                        </h3>
+
+                        <p class="description">
+                            {{ product['description'] }}
+                        </p>
+
+                        <p class="price">
+                            ₹{{ "%.2f"|format(product['price']|float) }}
+                        </p>
+
+                        <p class="details">
+                            <strong>Category:</strong>
+                            {{ product['category'] }}
+                        </p>
+
+                        <p class="details">
+                            <strong>Stock:</strong>
+                            {{ product['stock'] }}
+                        </p>
+
+                        {% if product['stock']|int > 0 %}
+
+                            <p
+                                class="details"
+                                style="color: #15803d;"
+                            >
+                                ✓ In Stock
+                            </p>
+
+                        {% else %}
+
+                            <p
+                                class="details"
+                                style="color: #dc2626;"
+                            >
+                                Out of Stock
+                            </p>
+
+                        {% endif %}
+
+                        {% if product['seller_name'] is defined %}
+
+                            <p class="seller">
+                                Sold by: {{ product['seller_name'] }}
+                            </p>
+
+                        {% endif %}
+
+                        <!-- CUSTOMER ADD TO CART -->
+
+                        {% if session.get('user_role') == 'customer' %}
+
+                            {% if product['stock']|int > 0 %}
+
+                                <form
+                                    action="{{ url_for('add_to_cart', product_id=product['id']) }}"
+                                    method="POST"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="cart-button"
+                                    >
+                                        🛒 Add to Cart
+                                    </button>
+
+                                </form>
+
+                            {% else %}
+
+                                <button
+                                    type="button"
+                                    class="cart-button"
+                                    disabled
+                                >
+                                    Out of Stock
+                                </button>
+
+                            {% endif %}
+
+                        {% elif not session.get('user_id') %}
+
+                            <a
+                                class="login-cart"
+                                href="{{ url_for('login') }}"
+                            >
+                                Login to Add to Cart
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                <h3>No Products Available Yet</h3>
+
+                <p>
+                    Products added by sellers will appear here.
+                </p>
+
+                {% if session.get('user_role') == 'seller' %}
+
+                    <a
+                        class="button"
+                        href="{{ url_for('add_product') }}"
+                    >
+                        + Add Your First Product
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+<footer>
+    <p>© 2026 ShopSphere. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
