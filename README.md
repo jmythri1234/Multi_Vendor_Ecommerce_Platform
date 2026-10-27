@@ -2,7 +2,7 @@
 
 A Python Flask-based e-commerce platform where customers can browse products, add items to their shopping cart, and place orders, while sellers can manage products and orders.
 
- 🚀 Project Overview
+🚀 Project Overview
 
 ShopSphere is a web-based marketplace designed to simplify online shopping and product management through a user-friendly interface.
 
@@ -19,14 +19,13 @@ ShopSphere is a web-based marketplace designed to simplify online shopping and p
 
 🛠️ Technologies Used
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Python, Flask
-- **Database:** SQLite
-- **Tools:** VS Code, Git, GitHub
+- Frontend: HTML, CSS, JavaScript
+- Backend: Python, Flask
+- Database: SQLite
+- Tools: VS Code, Git, GitHub
 
- 📁 Project Structure
+📁 Project Structure
 
-```text
 Multi_Vendor_Ecommerce_Platform/
 ├── app.py
 ├── requirements.txt
@@ -42,39 +41,32 @@ Multi_Vendor_Ecommerce_Platform/
     ├── my_orders.html
     ├── order_confirmation.html
     └── seller_orders.html
-```
 
 ⚙️ How to Run
 
-**1. Clone the repository**
-```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
-```
+1. Clone the repository
 
-**2. Navigate to the project**
-```bash
+git clone https://github.com/jmythri1234/Multi_Vendor_Ecommerce_Platform.git
+
+2. Navigate to the project
+
 cd Multi_Vendor_Ecommerce_Platform
-```
 
-**3. Create and activate a virtual environment**
-```bash
+3. Create and activate a virtual environment
+
 python -m venv venv
-```
 
 Windows PowerShell:
-```powershell
+
 .\venv\Scripts\Activate.ps1
-```
 
-**4. Install dependencies**
-```bash
+4. Install dependencies
+
 pip install -r requirements.txt
-```
 
-**5. Run the application**
-```bash
+5. Run the application
+
 python app.py
-```
 
 Open the local URL displayed in the terminal.
 
@@ -82,7 +74,7 @@ Open the local URL displayed in the terminal.
 
 To develop a simple and user-friendly online marketplace that connects customers and sellers through product management, shopping cart functionality, and order processing.
 
- 🔮 Future Enhancements
+🔮 Future Enhancements
 
 - 💳 Online Payment Integration
 - 🔍 Product Search and Filtering
@@ -91,10 +83,10 @@ To develop a simple and user-friendly online marketplace that connects customers
 
 👨‍💻 Developer
 
-*Mythri*
+Jikkappagari Mythri
 
 Developed as a full-stack web development project for academic and internship portfolio purposes.
 
 ---
 
-**ShopSphere — Connecting Customers and Sellers.** 🛍️
+ShopSphere — Connecting Customers and Sellers. 🛍️
